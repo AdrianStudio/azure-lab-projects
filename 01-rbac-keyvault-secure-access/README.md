@@ -6,7 +6,7 @@
 
 # RBAC and Key Vault: Secure Access by Design
 
-A practical demonstration of least privilege access control in Azure. Three users, three roles, three different scopes, one Key Vault — and the answer to a question most teams get wrong: can an Owner read a secret they own?
+A practical demonstration of least privilege access control in Azure. Three users, three roles, three different scopes, one Key Vault, and the answer to a question most teams get wrong: can an Owner read a secret they own?
 
 Spoiler: no.
 
@@ -33,7 +33,7 @@ The setup is minimal on purpose. One Resource Group containing a Storage Account
 | User | Role | Scope | Should be able to |
 |------|------|-------|-------------------|
 | `reader-user` | Reader | Resource Group | View all resources, modify nothing |
-| `contributor-user` | Contributor | Resource Group | Create, modify, delete resources — but not read secrets |
+| `contributor-user` | Contributor | Resource Group | Create, modify, delete resources, but not read secrets |
 | `keyvault-user` | Key Vault Secrets User | Key Vault only | Read secrets, see nothing else |
 
 ---
@@ -46,7 +46,7 @@ The first thing that broke the lab was my own account. I am Owner at the subscri
 
 ![Owner cannot read secrets](./images/Capt1.png)
 
-This is the management plane vs data plane separation that AZ-305 keeps asking about. Being Owner of a resource gives you control over the resource itself — you can create it, configure it, destroy it — but it does not automatically grant access to the data inside it.
+This is the management plane vs data plane separation that AZ-305 keeps asking about. Being Owner of a resource gives you control over the resource itself (you can create it, configure it, destroy it) but it does not automatically grant access to the data inside it.
 
 To read the secret, I had to assign myself the `Key Vault Administrator` role explicitly.
 
@@ -56,7 +56,7 @@ To read the secret, I had to assign myself the `Key Vault Administrator` role ex
 
 ### Reader does exactly what it says
 
-`reader-user` can see the Resource Group, the Storage Account, and the Key Vault. They can browse to every blade in the portal. But the moment they try to do anything — create a container, modify a configuration, read a secret — RBAC blocks them.
+`reader-user` can see the Resource Group, the Storage Account, and the Key Vault. They can browse to every blade in the portal. But the moment they try to do anything (create a container, modify a configuration, read a secret) RBAC blocks them.
 
 ![Reader sees the Key Vault but cannot access secrets](./images/Capt5.png)
 
@@ -102,7 +102,7 @@ This is what an application identity looks like in a well-designed system. A ser
 
 **Why Azure RBAC instead of Access Policies for the Key Vault.** Access Policies is the legacy model. RBAC is unified across Azure, integrates with audit logs, and uses the same role assignment model as the rest of the platform. In production, you want one authorization model, not two.
 
-**Why Public network access is enabled.** For this lab, restricting the Key Vault to a private endpoint would require a VNet, a private DNS zone, and a way to test access from inside that VNet. Out of scope for the first project. In production, Key Vault should never be publicly accessible — Private Endpoint or Selected Networks only.
+**Why Public network access is enabled.** For this lab, restricting the Key Vault to a private endpoint would require a VNet, a private DNS zone, and a way to test access from inside that VNet. Out of scope for the first project. In production, Key Vault should never be publicly accessible. Private Endpoint or Selected Networks only.
 
 **Why three users instead of groups.** Smaller blast radius for the demo. In production, you assign roles to groups, not individuals. Easier to audit, easier to onboard, easier to revoke when someone leaves.
 
