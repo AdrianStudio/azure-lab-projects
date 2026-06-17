@@ -14,4 +14,8 @@ What happens inside?
 5. That token never touches the disk. When it expires, it requests another one automatically.
 6. If the VM gets destroyed, the identity dies with it. If the token gets leaked, it expires by itself.
 
-There is no secret to rotate, there is no secret to steal, there is no file with credentials.
+There is no secret to rotate, there is no secret to steal, there is no file with credentials. If anything happens, you can know who and when did it with a connection string, zero traceability, if the VM is compromised, the attacker can only use the MI from inside the VM, they can't  do anything with it, as they could with a stolen SP secret.
+
+
+Sub decisions:
+
