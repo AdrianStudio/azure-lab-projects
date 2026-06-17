@@ -1,3 +1,17 @@
 Scenario 1:
 
 How does Managed Identity work?
+
+When you give an Azure Virtual Machine, it does not store any secrets inside of it. None. There is no credentials in /etc, there is no token in the disk, there is no key hardcoded anywhere.
+
+
+What happens inside?
+
+1. Azure registers an identity attached to your VM in Entre ID.
+2. Inside the VM there is an internal endpoint only accessible localy: 169.254.169.254 (Instance Metadata Service, IMDS)
+3. When you execute az login --identity, the CLI calls that endpoint.
+4. Azure detects that the VM is calling (because the call comes from inside that specific machine), it checks that it has MI assigned, it returns the temporary JWT token (it lives 1-2 hours) in the memory of the process.
+5. That token never touches the disk. When it expires, it requests another one automatically.
+6. If the VM gets destroyed, the identity dies with it. If the token gets leaked, it expires by itself.
+
+There is no secret to rotate, there is no secret to steal, there is no file with credentials.
