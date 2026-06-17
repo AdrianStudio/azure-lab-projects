@@ -13,8 +13,7 @@ B) I would not opt for option B either, same as before, even tho the token is ma
 
 C) I would opt for this option. Why? It meets the clients request. Password is not hardcoded stored anywhere. The environment is configured via MI on the VM, meaning that the VM uses Managed Identity to communicate with the secret in order to allow for employees to acces. This meets both expectations, no hardcoded keys, no manual secret rotation. This is the best and correct option.
 
-D) Many people would choose this option, I did too at one point, but its not the best option. THis may seem correct since the password is not hardcoded anywhere, and it doesnt have to be rotated every X period. But it has a loop issue. It uses MI to acces Key Vault, to then retrieve it, it does the same as option C, but 5 times more complicated. This option would be good but it also defeats the purpose. And the key can also get leaked, if anyone writes it down, sends it via chat or access it. 
-
+D) Many people would choose this option, I did too at one point, but its not the best option. This may seem correct since the password is not hardcoded anywhere, but it has an expiry date, 1 or 2 years, then someone has to rotate it manually, which completely defeats the expectations that the client had. And finally, if the secret gets leaked, anyone can use it from any VM. 
 Veredict:
 
-Option C is better, not only security and performace wise. It meets clients expectations, and thats always the offer you want to give.
+Option C is better, an SP secret can get leaked, causing anyone being able to access from anywhere, if the MI gets "leaked" (it can't actually), its only usable from one specific machine. It meets clients expectations, and thats always the offer you want to give.
