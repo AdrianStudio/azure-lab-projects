@@ -12,11 +12,13 @@ Spoiler: no.
 
 ---
 
-## The Problem
+## Scenario
 
-In most small companies, access to cloud resources is binary. Either you have Owner permissions or you have nothing. Developers can read production secrets. Operators can delete resources they shouldn't touch. Audit logs show everyone doing everything.
+A small accounting firm in Barcelona is moving its file storage and credentials management to Azure. Three people are involved in the migration: an external IT auditor hired for compliance review, an internal operator responsible for deploying and maintaining the resources, and a billing application that needs to read a database connection string at runtime.
 
-This project rebuilds that scenario the right way. Three users with three distinct responsibilities, each receiving only the permissions they need to do their job. Nothing more.
+The constraints are typical for a company this size. Limited budget. No dedicated security team. One clear compliance requirement: the auditor must be able to verify the setup without modifying anything or accessing sensitive data. The operator manages infrastructure but must never see the secrets the applications use. The billing application gets exactly one secret, nothing else.
+
+The default approach in most environments would be to give everyone Owner on the subscription and hope for the best. This project shows what the right setup looks like.
 
 ---
 
@@ -35,6 +37,8 @@ The setup is minimal on purpose. One Resource Group containing a Storage Account
 | `reader-user` | Reader | Resource Group | View all resources, modify nothing |
 | `contributor-user` | Contributor | Resource Group | Create, modify, delete resources, but not read secrets |
 | `keyvault-user` | Key Vault Secrets User | Key Vault only | Read secrets, see nothing else |
+
+Each user maps to one of the three real roles in the scenario. `reader-user` is the auditor. `contributor-user` is the operator. `keyvault-user` is the billing application's identity.
 
 ---
 
@@ -124,4 +128,4 @@ This lab cost less than €1. The Storage Account and Key Vault are essentially 
 
 ## What's Next
 
-Project 02 will build on top of this: networking, NSGs, and restricting access to these same resources using Private Endpoints and Service Endpoints. Same security mindset, deeper layer.
+Project 02 builds on top of this: networking, NSGs, and restricting access to these same resources using Private Endpoints and Service Endpoints. Same security mindset, deeper layer.
