@@ -29,7 +29,7 @@ Each project follows the same structure:
 | # | Project | Area (AZ-305) | Focus | Status |
 |---|---------|--------------|-------|--------|
 | 01 | [RBAC and Key Vault: Secure Access by Design](./01-rbac-keyvault-secure-access) | Identity & Governance | Least privilege, data plane vs management plane | ✅ Completed |
-| 02 | [Network Design by Isolation](./02-network-design-by-isolation) | Infrastructure (Networking) | VNets, NSGs, Private Endpoints, hub-spoke | 🟡 Planned |
+| 02 | [Network Design by Isolation](./02-network-design-by-isolation) | Infrastructure (Networking) | VNets, NSGs, Private Endpoints, hub-spoke | ✅ Completed |
 | 03 | [Storage Design by Lifecycle](./03-storage-design-by-lifecycle) | Data Storage | Tiering, redundancy, lifecycle policies | 🟡 Planned |
 | 04 | [Business Continuity by Design](./04-business-continuity-by-design) | Business Continuity | Backup, Site Recovery, RPO/RTO strategy | 🟡 Planned |
 | 05 | [Compute Platform by Workload](./05-compute-platform-by-workload) | Infrastructure (Compute) | VM vs App Service vs AKS vs Container Apps | 🟡 Planned |
