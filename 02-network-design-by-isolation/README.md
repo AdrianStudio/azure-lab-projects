@@ -24,7 +24,7 @@ The default approach in most environments would be to leave the SQL Server with 
 
 ## Architecture
 
-![Architecture diagram](./images/diagram.png)
+![Architecture diagram](./images/diagramnet.png)
 
 The setup is one VNet with three subnets: one for the application VM, one for the database's Private Endpoint, and one reserved for Azure Bastion. Two NSGs enforce east-west traffic rules. A Private DNS Zone makes the architecture transparent to the application code.
 
