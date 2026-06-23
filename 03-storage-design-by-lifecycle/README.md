@@ -68,7 +68,7 @@ The lifecycle policy was built around two distinct concerns. Current blobs (the 
 
 ![Lifecycle rules](./images/cap4.png)
 
-The rules transition base blobs from Hot to Cool at 30 days, Cool to Cold at 180, and Cold to Archive at 365 days from last modification. Previous versions get sent to Cool at 7 days, Archive at 90, and deleted at 365. The full policy JSON lives in [`policy/lifecycle-policy.json`](./policy/lifecycle-policy.json).
+The rules transition base blobs from Hot to Cool at 30 days, Cool to Cold at 180, and Cold to Archive at 365 days from last modification. Previous versions get sent to Cool at 7 days, Archive at 90, and deleted at 365. The full policy JSON lives in [`documents/lifecycle-policy.json`](./documents/lifecycle-policy.json).
 
 ### The blobs land in Hot, as expected
 
